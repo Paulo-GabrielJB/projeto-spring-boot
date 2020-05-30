@@ -1,5 +1,6 @@
 package br.com.curso.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,9 @@ public class Category implements Serializable {
     private Long id;
     @Column(name = "DS_CATEGORY")
     private String name;
-    @Transient
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "categories")
     private Set<Product> products = new HashSet<>();
 
     @Override
