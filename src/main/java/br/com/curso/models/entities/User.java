@@ -1,6 +1,7 @@
 package br.com.curso.models.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,8 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Data
@@ -34,6 +37,10 @@ public class User implements Serializable {
     private String phone;
     @Column(name = "DS_PASSWORD", nullable = false)
     private String password;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
