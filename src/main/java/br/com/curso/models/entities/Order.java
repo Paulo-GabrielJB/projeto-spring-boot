@@ -1,6 +1,7 @@
 package br.com.curso.models.entities;
 
 
+import br.com.curso.models.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +10,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Data
 @Entity
@@ -32,6 +35,13 @@ public class Order implements Serializable {
     @ManyToOne
     @JoinColumn(name = "ID_CLIENT")
     private User client;
+
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
+
+    public OrderStatus getOrderStatus(){
+        return OrderStatus.valueOf(orderStatus);
+    }
 
     @Override
     public boolean equals(Object o) {
