@@ -37,9 +37,9 @@ public class TestConfig implements CommandLineRunner {
         User u1 = new User(null, "Maria Brown", "maria@gmail.com", "11988888888", "123456", null);
         User u2 = new User(null, "Alex Green", "alex@gmail.com", "11977777777", "123456", null);
 
-        Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), OrderStatus.DELIVERED.getCode(), u1, new HashSet<>());
-        Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), OrderStatus.PAID.getCode(), u2, new HashSet<>());
-        Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.WAITING_PAYMENT.getCode(), u1, new HashSet<>());
+        Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), OrderStatus.DELIVERED.getCode(), u1, new HashSet<>(), null);
+        Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), OrderStatus.PAID.getCode(), u2, new HashSet<>(), null);
+        Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.WAITING_PAYMENT.getCode(), u1, new HashSet<>(), null);
 
         Category c1 = new Category(null, "Eletronics", null);
         Category c2 = new Category(null, "Books", null);
@@ -71,6 +71,12 @@ public class TestConfig implements CommandLineRunner {
         OrderItem oi4 = new OrderItem(p5, o3, 2, p5.getPrice());
 
         orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+
+        Payment pay1 = new Payment(null, Instant.parse("2019-07-21T05:42:10Z"), o2);
+
+        o2.setPayment(pay1);
+
+        orderRepository.save(o2);
 
 
     }
