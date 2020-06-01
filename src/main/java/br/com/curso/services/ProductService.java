@@ -2,6 +2,7 @@ package br.com.curso.services;
 
 import br.com.curso.models.entities.Product;
 import br.com.curso.repositories.ProductRepository;
+import br.com.curso.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,6 @@ public class ProductService {
 
         Optional<Product> obj = productRepository.findById(id);
 
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 }

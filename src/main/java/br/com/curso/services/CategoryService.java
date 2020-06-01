@@ -2,6 +2,7 @@ package br.com.curso.services;
 
 import br.com.curso.models.entities.Category;
 import br.com.curso.repositories.CategoryRepository;
+import br.com.curso.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,6 @@ public class CategoryService {
 
         Optional<Category> obj = categoryRepository.findById(id);
 
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 }
