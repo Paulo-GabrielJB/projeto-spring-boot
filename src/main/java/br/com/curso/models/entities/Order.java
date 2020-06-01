@@ -46,6 +46,10 @@ public class Order implements Serializable {
         return OrderStatus.valueOf(orderStatus);
     }
 
+    public void setOrderStatus(OrderStatus orderStatus){
+        this.orderStatus = orderStatus.getCode();
+    }
+
     public Double getTotal(){
         Double sum = 0.0;
         for(OrderItem oi: items)
